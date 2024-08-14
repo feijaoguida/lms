@@ -2,13 +2,18 @@ import StickyWrapper from "@/components/sticky-wrapper";
 import FeedWrapper from "@/components/feed-wrapper";
 import Header from "./header";
 import { UserProgress } from "@/components/user-progress";
-import { getUserProgres } from "@/db/queries";
+import { getUnits, getUserProgres } from "@/db/queries";
 import { redirect } from "next/navigation";
+import { Unit } from "./unit";
 
 const LearnPage = async () => {
   const userProgressPromisse = getUserProgres();
+  const unitsPromisse = getUnits();
 
-  const [userProgress] = await Promise.all([userProgressPromisse]);
+  const [userProgress, units] = await Promise.all([
+    userProgressPromisse,
+    unitsPromisse,
+  ]);
 
   if (!userProgress || !userProgress.activeCourse) {
     redirect("/courses");
@@ -27,6 +32,19 @@ const LearnPage = async () => {
 
       <FeedWrapper>
         <Header title={userProgress.activeCourse.title} />
+        {units.map((unit) => (
+          <div key={unit.id} className="mb-10">
+            <Unit
+              id={unit.id}
+              order={unit.order}
+              description={unit.description}
+              title={unit.title}
+              lessons={unit.lessons}
+              activeLesson={undefined}
+              activeLessonPercentage={0}
+            />
+          </div>
+        ))}
       </FeedWrapper>
     </div>
   );
