@@ -157,17 +157,30 @@ const main = async () => {
       },
       {
         id: 2,
-        lessonId: 7,
-        type: "SELECT",
-        question: "Whick one of these is the 'the man'?",
+        lessonId: 1,
+        type: "ASSIST",
+        question: "'the man'",
         order: 2,
       },
+      {
+        id: 3,
+        lessonId: 1,
+        type: "SELECT",
+        question: "Whick one of these is the 'the robot'?",
+        order: 3,
+      },
+      // {
+      //   id: 4,
+      //   lessonId: 7,
+      //   type: "SELECT",
+      //   question: "Whick one of these is the 'the robot'?",
+      //   order: 3,
+      // },
     ]);
 
     console.log("Inserting challengeOptions data...");
     await db.insert(schema.challengeOptions).values([
       {
-        id: 1,
         challengeId: 1,
         imageSrc: "/man.svg",
         correct: true,
@@ -175,7 +188,6 @@ const main = async () => {
         audioSrc: "/es_man.mp3",
       },
       {
-        id: 2,
         challengeId: 1,
         imageSrc: "/woman.svg",
         correct: false,
@@ -183,7 +195,6 @@ const main = async () => {
         audioSrc: "/es_woman.mp3",
       },
       {
-        id: 3,
         challengeId: 1,
         imageSrc: "/robot.svg",
         correct: false,
@@ -191,52 +202,70 @@ const main = async () => {
         audioSrc: "/es_robot.mp3",
       },
       {
-        id: 4,
         challengeId: 2,
-        imageSrc: "/man.svg",
         correct: true,
         text: "el hombre",
         audioSrc: "/es_man.mp3",
       },
       {
-        id: 5,
         challengeId: 2,
-        imageSrc: "/woman.svg",
         correct: false,
         text: "la mujer",
         audioSrc: "/es_woman.mp3",
       },
       {
-        id: 6,
         challengeId: 2,
-        imageSrc: "/robot.svg",
         correct: false,
         text: "el robot",
         audioSrc: "/es_robot.mp3",
       },
     ]);
 
-    console.log("Inserting challengeProgress data...");
-    await db.insert(schema.challengeProgress).values([
+    await db.insert(schema.challengeOptions).values([
       {
-        id: 1,
-        userId: "1",
-        challengeId: 2,
-        completed: false,
+        challengeId: 3,
+        imageSrc: "/man.svg",
+        correct: false,
+        text: "el hombre",
+        audioSrc: "/es_man.mp3",
+      },
+      {
+        challengeId: 3,
+        imageSrc: "/woman.svg",
+        correct: false,
+        text: "la mujer",
+        audioSrc: "/es_woman.mp3",
+      },
+      {
+        challengeId: 3,
+        imageSrc: "/robot.svg",
+        correct: true,
+        text: "el robot",
+        audioSrc: "/es_robot.mp3",
       },
     ]);
 
-    console.log("Inserting userProgress data...");
-    await db.insert(schema.userProgress).values([
-      {
-        userId: "1",
-        userName: "Mango Joe",
-        userImageSrc: "/mascot_green.png",
-        activeCourseId: 2,
-        hearts: 5,
-        points: 30,
-      },
-    ]);
+    // console.log("Inserting challengeProgress data...");
+    // await db.insert(schema.challengeProgress).values([
+    //   {
+    //     id: 1,
+    //     userId: "1",
+    //     challengeId: 2,
+    //     completed: false,
+    //   },
+    // ]);
+
+    // console.log("Inserting userProgress data...");
+    // await db.insert(schema.userProgress).values([
+    //   {
+    //     userId: "1",
+    //     userName: "Mango Joe",
+    //     userImageSrc: "/mascot_green.png",
+    //     activeCourseId: 2,
+    //     hearts: 5,
+    //     points: 30,
+    //   },
+    // ]);
 
     console.log("Seeding done!!!");
   } catch (error) {
